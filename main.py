@@ -72,7 +72,11 @@ def next_turn(snake, food):
         Canvas.delete(snake.squares[-1])
         del snake.squares[-1]
 
-    window.after(SPEED, next_turn, snake, food)
+    if check_collision(snake):
+        game_over()
+
+    else:
+        window.after(SPEED, next_turn, snake, food)
 
 
 def change_direction(new_direction):
@@ -96,8 +100,17 @@ def change_direction(new_direction):
             direction = new_direction
 
 
-def check_collision():
-    pass
+def check_collision(snake):
+
+    x, y = snake.coordinates[0]
+
+    if x < 0 or x >= GAME_WIDTH:
+        print("GAME OVER")
+        return True
+
+    elif y < 0 or y >= GAME_HEIGHT:
+        print("GAME OVER")
+        return True
 
 
 def game_over():
