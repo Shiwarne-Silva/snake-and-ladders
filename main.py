@@ -1,11 +1,11 @@
 from tkinter import *
 import random
 
-GAME_WIDTH = 700
+GAME_WIDTH = 1000
 GAME_HEIGHT = 700
 SPEED = 80
 SPACE_SIZE = 50
-BODY_PARTS = 10
+BODY_PARTS = 3
 SNAKE_COLOR = "#00FF00"
 FOOD_COLOR = "#FF0000"
 BACKGROUND_COLOR = "#000000"
@@ -121,7 +121,7 @@ def game_over():
 
     Canvas.delete(ALL)
     Canvas.create_text(Canvas.winfo_width()/2, Canvas.winfo_height()/2,
-                       font=('consolas', 70), text="GAME OVER", fill="red", anchor=CENTER)
+                       font=('consolas', 70), text="GAME OVER", fill="red", tag="gameover", anchor=CENTER)
 
 
 window = Tk()
