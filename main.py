@@ -12,7 +12,19 @@ BACKGROUND_COLOR = "#000000"
 
 
 class Snake:
-    pass
+
+    def __init__(self):
+        self.body_size = BODY_PARTS
+        self.coordinates = []
+        self.squares = []
+
+        for i in range(0, BODY_PARTS):
+            self.coordinates.append([0, 0])
+
+        for x, y in self.coordinates:
+            square = Canvas.create_rectangle(
+                x, y, x+SPACE_SIZE, y+SPACE_SIZE, fill=SNAKE_COLOR, tag="snake")
+            self.squares.append(square)
 
 
 class Food:
@@ -26,8 +38,30 @@ class Food:
                            fill=FOOD_COLOR, tag="food")
 
 
-def next_turn():
-    pass
+def next_turn(snake, food):
+
+    x, y = snake.coordinates[0]
+
+    if direction == "up":
+        y -= SPACE_SIZE
+
+    elif direction == "down":
+        y += SPACE_SIZE
+
+    elif direction == "left":
+        x -= SPACE_SIZE
+
+    elif direction == "right":
+        x += SPACE_SIZE
+
+    snake.coordinates.insert(0, (x, y))
+
+    square = Canvas.create_rectangle(
+        x, y, x+SPACE_SIZE, y+SPACE_SIZE, fill=SNAKE_COLOR)
+
+    snake.squares.insert(0, square)
+
+    window.after(SPEED, next_turn, snake, food)
 
 
 def change_direction(new_direction):
@@ -71,5 +105,7 @@ window.geometry(f"{window_width}x{window_height}+{x}+{y}")
 
 sname = Snake()
 food = Food()
+
+next_turn(sname, food)
 
 window.mainloop()
