@@ -12,7 +12,6 @@ BACKGROUND_COLOR = "#000000"
 
 
 class Snake:
-
     def __init__(self):
         self.body_size = BODY_PARTS
         self.coordinates = []
@@ -28,7 +27,6 @@ class Snake:
 
 
 class Food:
-
     def __init__(self):
         x = random.randint(0, (GAME_WIDTH/SPACE_SIZE)-1) * SPACE_SIZE
         y = random.randint(0, (GAME_HEIGHT/SPACE_SIZE)-1) * SPACE_SIZE
@@ -122,6 +120,23 @@ def game_over():
     Canvas.delete(ALL)
     Canvas.create_text(Canvas.winfo_width()/2, Canvas.winfo_height()/2,
                        font=('consolas', 70), text="GAME OVER", fill="red", tag="gameover", anchor=CENTER)
+    # Create a "Play Again" button
+    global play_again_button
+    play_again_button = Button(window, text="Play Again", font=(
+        "consolas", 20), command=restart_game)
+    play_again_button.place(relx=0.5, rely=0.7, anchor=CENTER)
+
+
+def restart_game():
+    global score
+    score = 0
+    label.config(text="Score: {}".format(score))
+    Canvas.delete("gameover")
+    if 'play_again_button' in globals():
+        play_again_button.destroy()  # Destroy the "Play Again" button if exists
+    sname = Snake()
+    food = Food()
+    next_turn(sname, food)
 
 
 window = Tk()
