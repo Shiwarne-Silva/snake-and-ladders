@@ -5,7 +5,7 @@ GAME_WIDTH = 700
 GAME_HEIGHT = 700
 SPEED = 80
 SPACE_SIZE = 50
-BODY_PARTS = 3
+BODY_PARTS = 10
 SNAKE_COLOR = "#00FF00"
 FOOD_COLOR = "#FF0000"
 BACKGROUND_COLOR = "#000000"
@@ -105,12 +105,16 @@ def check_collision(snake):
     x, y = snake.coordinates[0]
 
     if x < 0 or x >= GAME_WIDTH:
-        print("GAME OVER")
         return True
 
     elif y < 0 or y >= GAME_HEIGHT:
-        print("GAME OVER")
         return True
+
+    for body_part in snake.coordinates[1:]:
+        if x == body_part[0] and y == body_part[1]:
+            return True
+
+    return False
 
 
 def game_over():
